@@ -1,0 +1,26 @@
+{
+  "name": "be-auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev --port=8090",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "Osvaldo A. Neto <oalves.neto@outlook.com>",
+  "license": "MIT",
+  "description": "Back-end da aplicação da API e Autenticação do NextJS",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "nedb": "^1.8.0",
+    "next": "^14.2.9",
+    "next-swagger-doc": "^0.4.0",
+    "nookies": "^2.5.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "swagger-ui-react": "^5.17.14",
+    "uuid": "^10.0.0"
+  }
+}

@@ -1,0 +1,4 @@
+{"username":"oalvesxp","name":"Osvaldo A. Neto","email":"contato@xpto.com.br","password":"safepassword","refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjYwNjY5ODUsImV4cCI6MTcyNjY3MTc4NSwic3ViIjoiU05ZOGUyVDgwaUFpNjg3cyJ9.L8kQc_irslH07yEla9QCxl2t85w_haxHRbdugam22hs","_id":"SNY8e2T80iAi687s"}
+{"username":"alura","password":"safepassword","name":"Alura Cursos Online","email":"alura@alura.com.br","_id":"pchQDUBs1jJv8br0","refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjYwNjU4OTQsImV4cCI6MTcyNjY3MDY5NCwic3ViIjoicGNoUURVQnMxakp2OGJyMCJ9.vSwxSdU0r9s4CDJk4dVZ05oQPjE-y1xl6rtfHdW5c6Y"}
+{"$$indexCreated":{"fieldName":"username","unique":true,"sparse":false}}
+{"username":"danielb","password":"safepassword","name":"Daniel Brandão","email":"contato@xpto.com.br","_id":"yB9YapEid95gnXqg"}
