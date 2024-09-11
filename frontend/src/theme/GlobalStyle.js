@@ -15,6 +15,10 @@ export default function GlobalStyle() {
         text-align: center;
         padding-bottom: 15px;
       }
+
+      p {
+        text-align: center;
+      }
     `}</style>
   )
 }
