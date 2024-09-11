@@ -1,0 +1,19 @@
+{
+  "name": "fe-auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev --port=8080",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "Osvaldo A. Neto <oalves.neto@outlook.com>",
+  "license": "ISC",
+  "description": "Front-end da aplicação da API e Autenticação do NextJS",
+  "dependencies": {
+    "next": "^14.2.9",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
