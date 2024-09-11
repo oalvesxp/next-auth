@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Button from '../Button'
 import styles from './AuthForm.module.css'
 import { useRouter } from 'next/router'
+import { authService } from '../../services/auth/authService'
 
 export default function AuthForm() {
   const router = useRouter()
@@ -26,8 +27,18 @@ export default function AuthForm() {
     <form
       onSubmit={(event) => {
         event.preventDefault()
-        router.push('/auth-ssr') /** Server Side Render */
-        /** router.push('/auth-ssg') /** Static Site Generation */
+        authService
+          .login({
+            username: values.user,
+            password: values.passwd,
+          })
+          .then(() => {
+            router.push('/auth-ssr') /** Server Side Render */
+            /** router.push('/auth-ssg') /** Static Site Generation */
+          })
+          .catch((err) => {
+            alert(err)
+          })
       }}
     >
       <div className={styles.form__section}>
