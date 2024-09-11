@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "Osvaldo A. Neto <oalves.neto@outlook.com>",
-  "license": "ISC",
+  "license": "MIT",
   "description": "Front-end da aplicação da API e Autenticação do NextJS",
   "dependencies": {
     "next": "^14.2.9",
