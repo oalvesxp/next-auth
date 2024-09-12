@@ -1,9 +1,10 @@
 import Box from '../src/components/Box'
 import Container from '../src/components/Container'
 import Button from '../src/components/Button'
+import { withSessionHOC } from '../src/services/auth/sessionSVC'
 import { useRouter } from 'next/router'
 
-export default function AuthPageStatic(props) {
+function AuthPageStatic(props) {
   const router = useRouter()
 
   return (
@@ -20,9 +21,12 @@ export default function AuthPageStatic(props) {
         >
           Voltar
         </Button>
+
         {/** Debug */}
-        {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+        <pre>{JSON.stringify(props, null, 2)}</pre>
       </Box>
     </Container>
   )
 }
+
+export default withSessionHOC(AuthPageStatic)
