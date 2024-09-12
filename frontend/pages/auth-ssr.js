@@ -21,6 +21,7 @@ export default function AuthPageSSR(props) {
         >
           Voltar
         </Button>
+
         {/** Debug */}
         <pre>{JSON.stringify(props, null, 2)}</pre>
       </Box>
@@ -36,24 +37,3 @@ export const getServerSideProps = withSession((ctx) => {
     },
   }
 })
-
-{
-  /**
-  export async function getServerSideProps(ctx) {
-    try {
-      const session = await authSVC.getSession(ctx)
-
-      return {
-        props: { session },
-      }
-    } catch (err) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/?error=401',
-        },
-      }
-    }
-  }
-*/
-}
