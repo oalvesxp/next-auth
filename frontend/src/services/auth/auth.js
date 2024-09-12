@@ -1,7 +1,7 @@
 import { HttpClient } from '../../infra/HttpClient/HttpClient'
-import { tokenService } from './tokenService'
+import { token } from './token'
 
-export const authService = {
+export const auth = {
   async login({ username, password }) {
     return HttpClient(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
       method: 'POST',
@@ -15,7 +15,7 @@ export const authService = {
       }
 
       const body = res.body
-      tokenService.save(body.data.access_token)
+      token.save(body.data.access_token)
     })
   },
 }

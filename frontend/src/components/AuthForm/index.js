@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Button from '../Button'
 import styles from './AuthForm.module.css'
 import { useRouter } from 'next/router'
-import { authService } from '../../services/auth/authService'
+import { auth } from '../../services/auth/auth'
 
 export default function AuthForm() {
   const router = useRouter()
@@ -27,7 +27,7 @@ export default function AuthForm() {
     <form
       onSubmit={(event) => {
         event.preventDefault()
-        authService
+        auth
           .login({
             username: values.user,
             password: values.passwd,
