@@ -9,14 +9,29 @@ export const authSVC = {
         username,
         password,
       },
-    }).then(async (res) => {
-      if (!res.ok) {
-        throw new Error('Usuário e/ou senha inválidos!')
-      }
-
-      const body = res.body
-      tokenSVC.save(body.data.access_token)
     })
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error('Usuário e/ou senha inválidos!')
+        }
+
+        const body = res.body
+        tokenSVC.save(body.data.access_token)
+
+        return body
+      })
+      .then(async ({ data }) => {
+        const { refresh_token } = data
+
+        const res = await HttpClient('/api/refresh', {
+          method: 'POST',
+          body: {
+            refresh_token,
+          },
+        })
+
+        console.log(res)
+      })
   },
 
   async getSession(ctx) {
