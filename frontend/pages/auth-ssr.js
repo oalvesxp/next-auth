@@ -2,7 +2,7 @@ import Box from '../src/components/Box'
 import Container from '../src/components/Container'
 import Button from '../src/components/Button'
 import { useRouter } from 'next/router'
-import { token } from '../src/services/auth/token'
+import { withSession } from '../src/services/auth/sessionSVC'
 
 export default function AuthPageSSR(props) {
   const router = useRouter()
@@ -22,19 +22,38 @@ export default function AuthPageSSR(props) {
           Voltar
         </Button>
         {/** Debug */}
-        {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+        <pre>{JSON.stringify(props, null, 2)}</pre>
       </Box>
     </Container>
   )
 }
 
-export async function getServerSideProps(ctx) {
-  const cookies = token.get(ctx)
-  console.log('cookies', cookies)
-
+/** Decorator Pattern */
+export const getServerSideProps = withSession((ctx) => {
   return {
     props: {
-      token: token.get(ctx),
+      session: ctx.req.session,
     },
   }
+})
+
+{
+  /**
+  export async function getServerSideProps(ctx) {
+    try {
+      const session = await authSVC.getSession(ctx)
+
+      return {
+        props: { session },
+      }
+    } catch (err) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/?error=401',
+        },
+      }
+    }
+  }
+*/
 }

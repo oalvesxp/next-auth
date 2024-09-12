@@ -9,7 +9,7 @@ const ONE_HOUR = ONE_MINUTE * 60
 const ONE_DAY = ONE_HOUR * 24
 const ONE_YEAR = ONE_DAY * 365
 
-export const token = {
+export const tokenSVC = {
   save(access_token, ctx = null) {
     nookies.set(ctx, ACCESS_TOKEN_KEY, access_token, {
       maxAge: ONE_YEAR,
