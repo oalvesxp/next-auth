@@ -13,6 +13,7 @@
   "description": "Front-end da aplicação da API e Autenticação do NextJS",
   "dependencies": {
     "next": "^14.2.9",
+    "nookies": "^2.5.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   }

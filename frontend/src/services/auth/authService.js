@@ -1,4 +1,5 @@
 import { HttpClient } from '../../infra/HttpClient/HttpClient'
+import { tokenService } from './tokenService'
 
 export const authService = {
   async login({ username, password }) {
@@ -14,7 +15,7 @@ export const authService = {
       }
 
       const body = res.body
-      console.log(body)
+      tokenService.save(body.data.access_token)
     })
   },
 }

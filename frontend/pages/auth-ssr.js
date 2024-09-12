@@ -2,6 +2,7 @@ import Box from '../src/components/Box'
 import Container from '../src/components/Container'
 import Button from '../src/components/Button'
 import { useRouter } from 'next/router'
+import { tokenService } from '../src/services/auth/tokenService'
 
 export default function AuthPageSSR(props) {
   const router = useRouter()
@@ -25,4 +26,15 @@ export default function AuthPageSSR(props) {
       </Box>
     </Container>
   )
+}
+
+export async function getServerSideProps(ctx) {
+  const cookies = tokenService.get(ctx)
+  console.log('cookies', cookies)
+
+  return {
+    props: {
+      token: tokenService.get(ctx),
+    },
+  }
 }
