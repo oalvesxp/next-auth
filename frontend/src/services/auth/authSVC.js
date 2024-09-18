@@ -34,7 +34,7 @@ export const authSVC = {
       })
   },
 
-  async getSession(ctx) {
+  async getSession(ctx = null) {
     const token = tokenSVC.get(ctx)
 
     return HttpClient(`${process.env.NEXT_PUBLIC_API_URL}/api/session`, {
@@ -42,6 +42,7 @@ export const authSVC = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      refresh: true,
     }).then((res) => {
       if (!res.ok) {
         throw new Error('Não autorizado')

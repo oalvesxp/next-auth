@@ -8,15 +8,15 @@ const controllers = {
   async saveRefreshToken(req, res) {
     const ctx = { req, res }
 
-    console.log('handler', req.body)
-
     nookies.set(ctx, NEXT_REFRESH_TOKEN, req.body.refresh_token, {
       httpOnly: true,
       sameSite: 'lax',
+      path: '/',
     })
 
     res.json({
       data: {
+        status: 200,
         message: 'Stored with success!',
       },
     })
@@ -47,21 +47,22 @@ const controllers = {
       }
     )
 
-    tokenSVC.save(resHTTP.body.data.access_token, ctx)
-
     if (resHTTP.ok) {
       nookies.set(ctx, NEXT_REFRESH_TOKEN, resHTTP.body.data.refresh_token, {
         httpOnly: true,
         sameSite: 'lax',
+        path: '/',
       })
 
-      res.json({ resHTTP })
+      tokenSVC.save(resHTTP.body.data.access_token, ctx)
+
+      res.status(200).json({
+        data: resHTTP.body.data,
+      })
     } else {
-      res.json({
-        error: {
-          status: 401,
-          message: 'Não autorizado',
-        },
+      res.status(401).json({
+        status: 401,
+        message: 'Não autorizado',
       })
     }
   },
@@ -69,7 +70,7 @@ const controllers = {
 
 const controllerBy = {
   POST: controllers.saveRefreshToken,
-  GET: controllers.regenTokens /** NUNCA deve ir para produção */,
+  GET: controllers.regenTokens,
 }
 
 export default function handler(req, res) {

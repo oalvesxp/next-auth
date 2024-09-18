@@ -35,6 +35,7 @@ function useSession() {
     authSVC
       .getSession()
       .then((res) => {
+        console.log('sessionSVC', res)
         setSession(res)
       })
       .catch((err) => {
@@ -58,6 +59,7 @@ export function withSessionHOC(Component) {
     const session = useSession()
 
     if (!session.loading && session.error) {
+      console.log('sessionSVC:', 'Redirect para Home')
       router.push('/?error=401')
     }
 

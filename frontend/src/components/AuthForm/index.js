@@ -33,8 +33,8 @@ export default function AuthForm() {
             password: values.passwd,
           })
           .then(() => {
-            router.push('/auth-ssr') /** Server Side Render */
-            /** router.push('/auth-ssg') /** Static Site Generation */
+            /** router.push('/auth-ssr') /** Server Side Render */
+            router.push('/auth-ssg') /** Static Site Generation */
           })
           .catch((err) => {
             alert(err)
