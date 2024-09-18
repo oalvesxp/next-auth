@@ -12,38 +12,17 @@ const ONE_YEAR = ONE_DAY * 365
 export const tokenSVC = {
   save(access_token, ctx = null) {
     nookies.set(ctx, ACCESS_TOKEN_KEY, access_token, {
-      maxAge: ONE_YEAR,
+      maxAge: ONE_MINUTE,
       path: '/',
     })
-
-    {
-      /**
-       * globalThis?.localStorage?.setItem(ACCESS_TOKEN_KEY, access_token)
-       * globalThis?.sessionStorage?.setItem(ACCESS_TOKEN_KEY, access_token)
-       */
-    }
   },
 
   get(ctx = null) {
     const cookies = nookies.get(ctx)
     return cookies[ACCESS_TOKEN_KEY] || ''
-
-    {
-      /**
-       * return globalThis?.localStorage?.getItem(ACCESS_TOKEN_KEY)
-       * return globalThis?.sessionStorage?.getItem(ACCESS_TOKEN_KEY)
-       */
-    }
   },
 
   delete(ctx = null) {
     nookies.destroy(ctx, ACCESS_TOKEN_KEY)
-
-    {
-      /**
-       * return globalThis?.localStorage?.removeItem(ACCESS_TOKEN_KEY)
-       * return globalThis?.sessionStorage?.removeItem(ACCESS_TOKEN_KEY)
-       */
-    }
   },
 }
