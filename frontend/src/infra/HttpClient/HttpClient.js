@@ -1,13 +1,15 @@
 import nookies from 'nookies'
 import { tokenSVC } from '../../services/auth/tokenSVC'
+
 const NEXT_REFRESH_TOKEN = 'REFRESH_TOKEN_NAME'
 
-export async function HttpClient(url, opt) {
+export async function HttpClient(url, opt = {}) {
+  const defaultHeaders = opt.headers || {}
   const options = {
     ...opt,
     headers: {
       'Content-Type': 'application/json',
-      ...opt.headers,
+      ...defaultHeaders,
     },
     body: opt.body ? JSON.stringify(opt.body) : null,
   }
@@ -28,10 +30,8 @@ export async function HttpClient(url, opt) {
       const SSR = Boolean(opt?.ctx)
       const currentRefreshToken = opt?.ctx?.req?.cookies[NEXT_REFRESH_TOKEN]
 
-      console.log('HttpClient: Middleware refresh_token')
-      /** Tenta atualizar o token */
-
       try {
+        /** Tenta atualizar o token */
         const respHTTP = await HttpClient('http://localhost:8080/api/refresh', {
           method: SSR ? 'PUT' : 'GET',
           body: SSR ? { refresh_token: currentRefreshToken } : undefined,

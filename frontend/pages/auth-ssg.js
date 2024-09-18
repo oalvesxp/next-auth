@@ -16,10 +16,10 @@ function AuthPageStatic(props) {
         <Button
           type="button"
           onClick={(event) => {
-            router.push('/')
+            router.push('/logout')
           }}
         >
-          Voltar
+          Logout
         </Button>
 
         {/** Debug */}
