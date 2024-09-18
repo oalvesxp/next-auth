@@ -1,4 +1,6 @@
+import nookies from 'nookies'
 import { tokenSVC } from '../../services/auth/tokenSVC'
+const NEXT_REFRESH_TOKEN = 'REFRESH_TOKEN_NAME'
 
 export async function HttpClient(url, opt) {
   const options = {
@@ -23,28 +25,49 @@ export async function HttpClient(url, opt) {
       if (!opt.refresh) return res
       if (res.status != 401) return res
 
+      const SSR = Boolean(opt?.ctx)
+      const currentRefreshToken = opt?.ctx?.req?.cookies[NEXT_REFRESH_TOKEN]
+
       console.log('HttpClient: Middleware refresh_token')
-      const respHTTP = await HttpClient('http://localhost:8080/api/refresh', {
-        method: 'GET',
-      })
+      /** Tenta atualizar o token */
 
-      const newAccessToken = respHTTP.body.data.access_token
-      const newRefreshToken = respHTTP.body.data.refresh_token
+      try {
+        const respHTTP = await HttpClient('http://localhost:8080/api/refresh', {
+          method: SSR ? 'PUT' : 'GET',
+          body: SSR ? { refresh_token: currentRefreshToken } : undefined,
+        })
 
-      /** Salvando o novo access_token */
-      tokenSVC.save(newAccessToken)
+        const newAccessToken = respHTTP.body.data.access_token
+        const newRefreshToken = respHTTP.body.data.refresh_token
 
-      /** Tentar rodar o Request Anterior */
-      const retryResp = await HttpClient(url, {
-        ...options,
-        refresh: false,
-        headers: {
-          Authorization: `Bearer ${newAccessToken}`,
-        },
-      })
+        /** Salvando o novo tokens */
+        if (SSR) {
+          nookies.set(opt.ctx, NEXT_REFRESH_TOKEN, newRefreshToken, {
+            httpOnly: true,
+            sameSite: 'lax',
+            path: '/',
+          })
+        }
 
-      console.log('HttpClient', retryResp)
+        tokenSVC.save(newAccessToken)
 
-      return retryResp
+        /** Tentar rodar o Request Anterior */
+        const retryResp = await HttpClient(url, {
+          ...options,
+          refresh: false,
+          headers: {
+            Authorization: `Bearer ${newAccessToken}`,
+          },
+        })
+
+        return retryResp
+      } catch (err) {
+        return res.status(401).json({
+          error: {
+            status: 401,
+            message: 'Invalid refresh token, please login again.',
+          },
+        })
+      }
     })
 }

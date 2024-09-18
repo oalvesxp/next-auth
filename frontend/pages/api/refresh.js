@@ -35,7 +35,8 @@ const controllers = {
   async regenTokens(req, res) {
     const ctx = { req, res }
     const cookies = nookies.get(ctx)
-    const refresh_token = cookies[NEXT_REFRESH_TOKEN]
+    const refresh_token = cookies[NEXT_REFRESH_TOKEN] || req.body.refresh_token
+    console.log('/api/refresh [regenTokens]', refresh_token)
 
     const resHTTP = await HttpClient(
       `${process.env.NEXT_PUBLIC_API_URL}/api/refresh`,
@@ -71,6 +72,7 @@ const controllers = {
 const controllerBy = {
   POST: controllers.saveRefreshToken,
   GET: controllers.regenTokens,
+  PUT: controllers.regenTokens,
 }
 
 export default function handler(req, res) {

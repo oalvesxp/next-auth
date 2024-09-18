@@ -4,7 +4,7 @@ import { getTokenFromHeaders } from '../utils/getTokenFromHeaders'
 const ACCESSTOKEN_SECRET = process.env.ACCESSTOKEN_SECRET
 const ACCESSTOKEN_EXPIRATION = '10s'
 const REFRESHTOKEN_SECRET = process.env.REFRESHTOKEN_SECRET
-const REFRESHTOKEN_EXPIRATION = '7d'
+const REFRESHTOKEN_EXPIRATION = '1h'
 
 export const Auth = {
   /** Generate access_token */
