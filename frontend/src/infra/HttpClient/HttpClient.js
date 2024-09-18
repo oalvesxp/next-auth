@@ -49,7 +49,7 @@ export async function HttpClient(url, opt = {}) {
           })
         }
 
-        tokenSVC.save(newAccessToken)
+        tokenSVC.save(newAccessToken, opt.ctx)
 
         /** Tentar rodar o Request Anterior */
         const retryResp = await HttpClient(url, {
